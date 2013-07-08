@@ -39,22 +39,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\EBuildingType.cs" />
+    <Compile Include="Enumerations\EReturnCode.cs" />
+    <Compile Include="Enumerations\EHeroProduction.cs" />
+    <Compile Include="Enumerations\EInitMode.cs" />
+    <Compile Include="Enumerations\ELanguageID.cs" />
+    <Compile Include="Enumerations\EPageID.cs" />
     <Compile Include="Interfaces\Attributes\IAlliance.cs" />
     <Compile Include="Interfaces\Attributes\IBuilding.cs" />
+    <Compile Include="Interfaces\Attributes\ICash.cs" />
+    <Compile Include="Interfaces\Attributes\ICoordinate.cs" />
+    <Compile Include="Interfaces\Attributes\ICosts.cs" />
     <Compile Include="Interfaces\Attributes\IHero.cs" />
     <Compile Include="Interfaces\Attributes\IMessage.cs" />
     <Compile Include="Interfaces\Attributes\IPlayer.cs" />
-    <Compile Include="Interfaces\Attributes\ISoldier.cs" />
+    <Compile Include="Interfaces\Attributes\IRessource.cs" />
+    <Compile Include="Interfaces\Attributes\IUnit.cs" />
     <Compile Include="Interfaces\Attributes\IVillage.cs" />
     <Compile Include="Interfaces\Client\ITBWC_DOMBased.cs" />
     <Compile Include="Interfaces\Client\ITBWebClient.cs" />
     <Compile Include="Interfaces\Handler\IHCom.cs" />
+    <Compile Include="Interfaces\Handler\IHPage.cs" />
     <Compile Include="Interfaces\ITravianBot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
-    <Folder Include="Enumerations\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\GitHub\log4net\src\log4net.vs2010.csproj">
+      <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
+      <Name>log4net.vs2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\HLib\InterfaceHandler\Handler.Interface.csproj">
+      <Project>{676b080a-7451-46e1-a781-161115fc8360}</Project>
+      <Name>Handler.Interface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,4 @@
-﻿namespace TBCore.Enumeration
+﻿namespace TB.Core.Enumeration
 {
     public enum EPageID
     {

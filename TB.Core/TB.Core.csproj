@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,24 +46,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerations\EBuildingType.cs" />
+    <Compile Include="Enumerations\ENation.cs" />
     <Compile Include="Enumerations\EReturnCode.cs" />
     <Compile Include="Enumerations\EHeroProduction.cs" />
     <Compile Include="Enumerations\EInitMode.cs" />
     <Compile Include="Enumerations\ELanguageID.cs" />
     <Compile Include="Enumerations\EPageID.cs" />
+    <Compile Include="Enumerations\EUnitType.cs" />
+    <Compile Include="Enumerations\EUpdateMode.cs" />
     <Compile Include="Interfaces\Attributes\IAlliance.cs" />
     <Compile Include="Interfaces\Attributes\IBuilding.cs" />
     <Compile Include="Interfaces\Attributes\ICash.cs" />
     <Compile Include="Interfaces\Attributes\ICoordinate.cs" />
+    <Compile Include="Interfaces\Attributes\ICoreAttribute.cs" />
     <Compile Include="Interfaces\Attributes\ICosts.cs" />
     <Compile Include="Interfaces\Attributes\IHero.cs" />
     <Compile Include="Interfaces\Attributes\IMessage.cs" />
     <Compile Include="Interfaces\Attributes\IPlayer.cs" />
-    <Compile Include="Interfaces\Attributes\IRessource.cs" />
+    <Compile Include="Interfaces\Attributes\IRessources.cs" />
+    <Compile Include="Interfaces\Attributes\ITroop.cs" />
     <Compile Include="Interfaces\Attributes\IUnit.cs" />
     <Compile Include="Interfaces\Attributes\IVillage.cs" />
-    <Compile Include="Interfaces\Client\ITBWC_DOMBased.cs" />
-    <Compile Include="Interfaces\Client\ITBWebClient.cs" />
     <Compile Include="Interfaces\Handler\IHCom.cs" />
     <Compile Include="Interfaces\Handler\IHPage.cs" />
     <Compile Include="Interfaces\ITravianBot.cs" />
@@ -67,11 +76,10 @@
     <Folder Include="Classes\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\GitHub\log4net\src\log4net.vs2010.csproj">
-      <Project>{181fe707-e161-4722-9f38-6aaab6faa106}</Project>
-      <Name>log4net.vs2010</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\HLib\InterfaceHandler\Handler.Interface.csproj">
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\libary\HLib\InterfaceHandler\Handler.Interface.csproj">
       <Project>{676b080a-7451-46e1-a781-161115fc8360}</Project>
       <Name>Handler.Interface</Name>
     </ProjectReference>

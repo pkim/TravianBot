@@ -1,4 +1,4 @@
-﻿namespace TBCore.Enumeration
+﻿namespace TB.Core.Enumerations
 {
     public enum EInitMode
     {

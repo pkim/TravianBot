@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TB.Core.Interfaces.Attributes
 {
-  interface ICash
+  public interface ICash
   {
   }
 }

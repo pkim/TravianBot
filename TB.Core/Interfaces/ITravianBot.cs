@@ -5,6 +5,9 @@ using TB.Core.Interfaces.Attributes;
 
 namespace TB.Core.Interfaces
 {
+  /// <summary>
+  /// This interface serves the main methods and properties of the travian bot
+  /// </summary>
   public interface ITravianBot
   {
     #region Properties
@@ -45,9 +48,12 @@ namespace TB.Core.Interfaces
     #endregion Properties
 
     #region Methods
+
     /// <summary>
     /// Tries to log in the client on the travian website.
     /// </summary>
+    /// <param name="_name">The login name</param>
+    /// <param name="_password">The login password</param>
     /// <remarks>
     /// The needed information for the log in has be to configured befor
     /// </remarks>
@@ -58,7 +64,7 @@ namespace TB.Core.Interfaces
     /// Returns the code of the error if one has occured. 
     /// Note that this code would be "SUCCESS" if everything was ok.
     /// </returns>
-    EReturnCode Login();
+    EReturnCode Login(String _name, String _password);
 
     /// <summary>
     /// Tries to log out the client from the travian website

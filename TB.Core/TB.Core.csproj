@@ -45,7 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Attributes\Alliance.cs" />
+    <Compile Include="Classes\Attributes\Hero.cs" />
+    <Compile Include="Classes\Attributes\Player.cs" />
+    <Compile Include="Classes\Handler\HHumanActivity.cs" />
+    <Compile Include="Classes\Handler\HInfo.cs" />
+    <Compile Include="Classes\Handler\HLink.cs" />
+    <Compile Include="Classes\Handler\HPage.cs" />
+    <Compile Include="Classes\Properties\PConfig.cs" />
+    <Compile Include="Classes\Properties\PHTTPParameters.cs" />
+    <Compile Include="Classes\Properties\PLinks.cs" />
+    <Compile Include="Classes\TravianBot.cs" />
     <Compile Include="Enumerations\EBuildingType.cs" />
+    <Compile Include="Enumerations\EDifficulty.cs" />
     <Compile Include="Enumerations\ENation.cs" />
     <Compile Include="Enumerations\EReturnCode.cs" />
     <Compile Include="Enumerations\EHeroProduction.cs" />
@@ -54,6 +66,7 @@
     <Compile Include="Enumerations\EPageID.cs" />
     <Compile Include="Enumerations\EUnitType.cs" />
     <Compile Include="Enumerations\EUpdateMode.cs" />
+    <Compile Include="Interfaces\Attributes\IAdventure.cs" />
     <Compile Include="Interfaces\Attributes\IAlliance.cs" />
     <Compile Include="Interfaces\Attributes\IBuilding.cs" />
     <Compile Include="Interfaces\Attributes\ICash.cs" />
@@ -67,21 +80,25 @@
     <Compile Include="Interfaces\Attributes\ITroop.cs" />
     <Compile Include="Interfaces\Attributes\IUnit.cs" />
     <Compile Include="Interfaces\Attributes\IVillage.cs" />
-    <Compile Include="Interfaces\Handler\IHCom.cs" />
     <Compile Include="Interfaces\Handler\IHPage.cs" />
     <Compile Include="Interfaces\ITravianBot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Classes\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="Logging.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libary\HLib\InterfaceHandler\Handler.Interface.csproj">
       <Project>{676b080a-7451-46e1-a781-161115fc8360}</Project>
       <Name>Handler.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libary\HLib\SettingHandler\Handler.Settings.csproj">
+      <Project>{b62fa97e-849f-4017-b022-af3fb5142123}</Project>
+      <Name>Handler.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

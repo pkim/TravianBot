@@ -7,9 +7,9 @@
         LOGIN  = 1,
         LOGOUT = 2,
 
-        VILLAGE1 = 10,
-        VILLAGE2 = 11,
-        VILLAGE3 = 12,
+        FARM = 10,
+        VILLAGE = 11,
+        VILLAGE_OVERVIEW = 12,
 
         MAP        = 13,
         STATISTICS = 14,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using TB.Core.Enumerations;
 using TB.Core.Interfaces.Attributes;
 
@@ -8,9 +9,30 @@ namespace TB.Core.Interfaces
   /// <summary>
   /// This interface serves the main methods and properties of the travian bot
   /// </summary>
-  public interface ITravianBot
+  public interface ITravianBot : ICoreAttribute
   {
     #region Properties
+
+    /// <summary>
+    /// The ip address of the client
+    /// </summary>
+    IPAddress ClientIP { get; }
+
+    /// <summary>
+    /// The date time the last login occured
+    /// </summary>
+    DateTime LastLogIn { get; }
+
+    /// <summary>
+    /// The date time the last logout occured
+    /// </summary>
+    DateTime LastLogOut { get; }
+
+    /// <summary>
+    /// The duration of login
+    /// </summary>
+    TimeSpan LoginDuration { get; }
+
     /// <summary>
     /// The villages of the account this bot maybe should handle
     /// </summary>
@@ -52,6 +74,7 @@ namespace TB.Core.Interfaces
     /// <summary>
     /// Tries to log in the client on the travian website.
     /// </summary>
+    /// <param name="_server">The base url of the server</param>
     /// <param name="_name">The login name</param>
     /// <param name="_password">The login password</param>
     /// <remarks>
@@ -64,7 +87,7 @@ namespace TB.Core.Interfaces
     /// Returns the code of the error if one has occured. 
     /// Note that this code would be "SUCCESS" if everything was ok.
     /// </returns>
-    EReturnCode Login(String _name, String _password);
+    EReturnCode Login(String _server, String _name, String _password);
 
     /// <summary>
     /// Tries to log out the client from the travian website

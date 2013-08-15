@@ -15,14 +15,23 @@ namespace TB.Core.Classes.Attributes
       this.ID     = new Int32();
       this.Name   = String.Empty;
       this.Nation = ENation.UNKNOWN;
+      this.Rank   = new Int32();
+      this.Age    = new Int32();
+      this.Gender = EGender.UNKNOWN;
+      this.City   = String.Empty;
     }
     #endregion Constructor
 
     #region Properties
-    public Boolean Initialized { get; private set; }
-    public Int32 ID { get; private set; }
-    public String Name { get; private set; }
-    public ENation Nation { get; private set; }
+    public Boolean Initialized { get; protected set; }
+    public Int32 ID { get; protected set; }
+    public String Name { get; protected set; }
+    public ENation Nation { get; protected set; }
+    public Int32 Rank { get; protected set; }
+    public Int32 Age { get; protected set; }
+    public EGender Gender { get; protected set; }
+    public string City { get; protected set; }
+
     #endregion Properties
 
     #region Methods
@@ -49,14 +58,6 @@ namespace TB.Core.Classes.Attributes
     /// </returns>
     protected EReturnCode ResolveID()
     {
-      // resovle id here before changing output directory //
-
-      /* Set the output directory for the cached HTML Documents              *
-       * Maybe it would be nessecery to move the cached html document of the *
-       * current directory which is a random generated number to the new one */
-      HInfo.PConfig.CacheHTMLOutputDirectory = String.Format("{0}/{1}/",
-                                                    AppDomain.CurrentDomain.BaseDirectory,
-                                                    this.ID);
       return EReturnCode.UNKNOWN;
     }
     #endregion Protected

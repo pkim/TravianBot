@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TB.Core.Classes;
+using TB.Core.Classes.Handler;
+using TB.Core.Interfaces;
 
 namespace TB.FrontEnd
 {
@@ -23,6 +14,31 @@ namespace TB.FrontEnd
     public MainWindow()
     {
       InitializeComponent();
+
+      try
+      {
+        // use privoxy for debugging and test performance because it needs a lot of time to restart the tor server and proxy each build.
+        ITravianBot tb = new TravianBot(new System.Net.WebProxy(System.Net.IPAddress.Loopback.ToString(), 8118));
+
+        String result = tb.Login("http://ts7.travian.de/", "MojoJojo", "mikey3321").ToString();
+        //MessageBox.Show("Login: " + result);
+
+        result = tb.Init().ToString();
+        //MessageBox.Show("Init: " + result);
+
+        result = tb.Logout().ToString();
+        //MessageBox.Show("Logout: " + result);
+
+        MessageBox.Show(String.Format("Login duration: {0}", tb.LoginDuration.ToString()));
+
+        this.Close();
+       
+      }
+      catch (Exception exception)
+      {
+        HInfo.LogHandler.Error("Unable to initilaize the bot", exception);
+      }
+    
     }
   }
 }

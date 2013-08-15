@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handler.Interface", "..\lib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handler.Settings", "..\libary\HLib\SettingHandler\Handler.Settings.csproj", "{B62FA97E-849F-4017-B022-AF3FB5142123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Handler.File", "..\libary\HLib\FileHandler\Handler.File.csproj", "{34449BDB-C4E3-492A-BAF5-D9BE7D63C3F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B62FA97E-849F-4017-B022-AF3FB5142123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B62FA97E-849F-4017-B022-AF3FB5142123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B62FA97E-849F-4017-B022-AF3FB5142123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34449BDB-C4E3-492A-BAF5-D9BE7D63C3F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34449BDB-C4E3-492A-BAF5-D9BE7D63C3F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34449BDB-C4E3-492A-BAF5-D9BE7D63C3F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34449BDB-C4E3-492A-BAF5-D9BE7D63C3F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

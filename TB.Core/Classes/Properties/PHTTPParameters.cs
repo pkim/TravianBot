@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using Handler.Settings.Property;
+using TB.Core.Classes.Handler;
 
 namespace TB.Core.Classes.Properties
 {
@@ -45,6 +47,11 @@ namespace TB.Core.Classes.Properties
         #region Village
         this.VillageNewdID = "newdid";
         #endregion village
+
+        // create the output directory
+        if (!Directory.Exists(HInfo.PGlobal.Settings))
+        { Directory.CreateDirectory(HInfo.PGlobal.Settings); }
+        this.OutputDirectory = HInfo.PGlobal.Settings;
     }
     #endregion Constructor 
 

@@ -26,6 +26,12 @@
     CONNECTION_PROBLEM = 300,
 
     /// <summary>
+    /// Not loged in so far, no further requests to the travian server
+    /// possible
+    /// </summary>
+    NOT_LOGED_IN = 301,
+
+    /// <summary>
     /// The connection seems to be ok but something went wrong
     /// by handling this action. e.g.: UpgradeBuilding().
     /// The main reason for this problem is unknown.

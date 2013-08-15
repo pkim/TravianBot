@@ -14,10 +14,8 @@ namespace TB.Core.Classes.Handler
       if (HInfo.PConfig.SleepDurationBetweenActions <
           HInfo.PConfig.SleepDurationBetweenActionsDevianceMax)
       {
-        HInfo.LogHandler.Error(
-            "SleepDurationBetweenActions is lower than SleepDuratoinBetweenActions_DevianceMax! Take a look in the PropertyConfig file");
-        throw new Exception(
-            "SleepDurationBetweenActions is lower than SleepDuratoinBetweenActions_DevianceMax! Take a look in the PropertyConfig file");
+        HInfo.LogHandler.Error("SleepDurationBetweenActions is lower than SleepDuratoinBetweenActions_DevianceMax! Take a look in the PropertyConfig file");
+        throw new Exception("SleepDurationBetweenActions is lower than SleepDuratoinBetweenActions_DevianceMax! Take a look in the PropertyConfig file");
       }
 
       waitDuration = randomNumber.Next(

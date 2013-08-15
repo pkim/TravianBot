@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using Handler.Settings.Property;
+using TB.Core.Classes.Handler;
 
 namespace TB.Core.Classes.Properties
 {
@@ -10,7 +12,7 @@ namespace TB.Core.Classes.Properties
     {
         this.Server = "http://ts7.travian.de/";
 
-        this.Ressources       = "dorf1.php";
+        this.Farm       = "dorf1.php";
         this.Village          = "dorf2.php";
         this.VillagesOverview = "dorf3.php";
 
@@ -24,13 +26,18 @@ namespace TB.Core.Classes.Properties
 
         this.Login  = "login.php";
         this.Logout = "logout.php";
+
+        // create the output directory
+        if (!Directory.Exists(HInfo.PGlobal.Settings))
+        { Directory.CreateDirectory(HInfo.PGlobal.Settings); }
+        this.OutputDirectory = HInfo.PGlobal.Settings;
     }
     #endregion Constructor
 
     #region Properties
     public String Server { get; set; }
 
-    public String Ressources { get; set; }
+    public String Farm { get; set; }
     public String Village { get; set; }
     public String VillagesOverview { get; set; }
         

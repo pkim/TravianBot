@@ -24,7 +24,7 @@ namespace TB.Core.Interfaces.Attributes
     /// <summary>
     /// The ressources of the village
     /// </summary>
-    IRessources Ressources { get; }
+    IRessourceLimits Ressources { get; }
 
     /// <summary>
     /// The buildings of the village
@@ -63,6 +63,17 @@ namespace TB.Core.Interfaces.Attributes
     /// The URL of the buildings of the village
     /// </summary>
     Uri URLVillage { get; }
+
+    /// <summary>
+    /// The amount of inhabitants in this village
+    /// </summary>
+    Int32 Inhabitants { get; }
+    
+    /// <summary>
+    /// Specifies if this village is the main village
+    /// </summary>
+    Boolean MainVillage { get; }
+
     #endregion Properties
 
     #region Methods
@@ -107,7 +118,7 @@ namespace TB.Core.Interfaces.Attributes
     /// Returns the code of the error if one has occured. 
     /// Note that this code would be "SUCCESS" if everything was ok.
     /// </returns>
-    EReturnCode SendRessources(IList<IRessources> _ressources, ICoordinate _coordinate);
+    EReturnCode SendRessources(IList<IRessourceLimits> _ressources, ICoordinate _coordinate);
 
     /// <summary>
     /// Trains a amount of units of a specific type

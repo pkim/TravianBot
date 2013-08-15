@@ -4,17 +4,19 @@
     {
         UNKNOWN = 0,
 
-        LOGIN  = 1,
-        LOGOUT = 2,
+        LOGIN  = 100,
+        LOGOUT = 101,
 
-        FARM = 10,
-        VILLAGE = 11,
-        VILLAGE_OVERVIEW = 12,
+        FARM = 200,
+        VILLAGE = 201,
+        VILLAGE_OVERVIEW = 203,
 
-        MAP        = 13,
-        STATISTICS = 14,
-        REPORT     = 15,
-        MESSAGES   = 16,
-        PLAYER     = 17,
+        MAP        = 204,
+        STATISTICS = 205,
+        REPORT     = 206,
+        MESSAGES   = 207,
+        PLAYER     = 208,
+
+        STATIC_FRAME = 300,
     }
 }

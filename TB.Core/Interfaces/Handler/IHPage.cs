@@ -1,5 +1,6 @@
 ﻿using System;
 using Handler.Interface.NetworkHandler.IP.HTML;
+using HtmlAgilityPack;
 
 namespace TB.Core.Interfaces.Handler
 {
@@ -23,13 +24,28 @@ namespace TB.Core.Interfaces.Handler
     #endregion Properties
 
     #region Methods
+
+    /// <summary>
+    /// Downloads the player page generally but not that this happens only 
+    /// if no other page like player, farm, village which contains the static frame around 
+    /// center is already downloaded.
+    /// </summary>
+    /// <remarks>
+    /// This page will dynamically resetted by the latest downloaded html document 
+    /// which contains the static frame around the center.
+    /// </remarks>
+    /// <returns>
+    /// A page which contains the static frame around the center
+    /// </returns>
+    HtmlDocument GetPageStatic();
+
     /// <summary>
     /// Download of the login HTML document
     /// </summary>
     /// <returns>
     /// The login HTML document
     /// </returns>
-    HTMLDocument GetPageLogin();
+    HtmlDocument GetPageLogin();
 
     /// <summary>
     /// Download of the logout HTML document
@@ -37,14 +53,14 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The logout HTML document
     /// </returns>
-    HTMLDocument GetPageLogout();
+    HtmlDocument GetPageLogout();
 
     /// <summary>
     /// Download of the farm HTML document
     /// </summary>
     /// <param name="_villageID">The id of the requested village HTML document</param>
     /// <returns>The farm HTML document</returns>
-    HTMLDocument GetPageFarm(Int32 _villageID);
+    HtmlDocument GetPageFarm(Int32 _villageID);
 
     /// <summary>
     /// Download of the village HTML document
@@ -53,16 +69,15 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The village HTML document
     /// </returns>
-    HTMLDocument GetPageVillage(Int32 _villageID);
+    HtmlDocument GetPageVillage(Int32 _villageID);
 
     /// <summary>
     /// Download of the village overview HTML document
     /// </summary>
-    /// <param name="_villageID">The id of the requested village HTML document</param>
     /// <returns>
     /// The village overview HTML document
     /// </returns>
-    HTMLDocument GetPageVillageOverview(Int32 _villageID);
+    HtmlDocument GetPageVillageOverview();
 
     /// <summary>
     /// Download of the map HTML document
@@ -70,7 +85,7 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The map HTML document
     /// </returns>
-    HTMLDocument GetPageMap();
+    HtmlDocument GetPageMap();
 
     /// <summary>
     /// Download of the statistic HTML document
@@ -78,7 +93,7 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The statistic HTML document
     /// </returns>
-    HTMLDocument GetPageStatistic();
+    HtmlDocument GetPageStatistic();
 
     /// <summary>
     /// Download of the reports HTML document
@@ -86,7 +101,7 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The reports HTML document
     /// </returns>
-    HTMLDocument GetPageReports();
+    HtmlDocument GetPageReports();
 
     /// <summary>
     /// Download of the messages HTML document
@@ -94,7 +109,7 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The messages HTML document
     /// </returns>
-    HTMLDocument GetPageMessages();
+    HtmlDocument GetPageMessages();
 
     /// <summary>
     /// Download of the player HTML document
@@ -102,7 +117,7 @@ namespace TB.Core.Interfaces.Handler
     /// <returns>
     /// The player HTML document
     /// </returns>
-    HTMLDocument GetPagePlayer();
+    HtmlDocument GetPagePlayer();
 
     #endregion Methods
   }

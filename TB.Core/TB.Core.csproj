@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -43,21 +46,35 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.XPath">
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.Xml.XPath.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Attributes\Alliance.cs" />
+    <Compile Include="Classes\Attributes\Building.cs" />
+    <Compile Include="Classes\Attributes\Coordinate.cs" />
     <Compile Include="Classes\Attributes\Hero.cs" />
     <Compile Include="Classes\Attributes\Player.cs" />
+    <Compile Include="Classes\Attributes\Ressources.cs" />
+    <Compile Include="Classes\Attributes\Village.cs" />
     <Compile Include="Classes\Handler\HHumanActivity.cs" />
     <Compile Include="Classes\Handler\HInfo.cs" />
     <Compile Include="Classes\Handler\HLink.cs" />
     <Compile Include="Classes\Handler\HPage.cs" />
     <Compile Include="Classes\Properties\PConfig.cs" />
+    <Compile Include="Classes\Properties\PGlobal.cs" />
+    <Compile Include="Classes\Properties\PDictionary.cs" />
+    <Compile Include="Classes\Properties\Languages\PDictionaryDE.cs" />
+    <Compile Include="Classes\Properties\PHtmlAttributes.cs" />
     <Compile Include="Classes\Properties\PHTTPParameters.cs" />
     <Compile Include="Classes\Properties\PLinks.cs" />
+    <Compile Include="Classes\Properties\PPlayer.cs" />
+    <Compile Include="Classes\Properties\PXPathExpr.cs" />
     <Compile Include="Classes\TravianBot.cs" />
     <Compile Include="Enumerations\EBuildingType.cs" />
     <Compile Include="Enumerations\EDifficulty.cs" />
+    <Compile Include="Enumerations\EGender.cs" />
     <Compile Include="Enumerations\ENation.cs" />
     <Compile Include="Enumerations\EReturnCode.cs" />
     <Compile Include="Enumerations\EHeroProduction.cs" />
@@ -76,15 +93,21 @@
     <Compile Include="Interfaces\Attributes\IHero.cs" />
     <Compile Include="Interfaces\Attributes\IMessage.cs" />
     <Compile Include="Interfaces\Attributes\IPlayer.cs" />
+    <Compile Include="Interfaces\Attributes\IRessourceLimits.cs" />
     <Compile Include="Interfaces\Attributes\IRessources.cs" />
     <Compile Include="Interfaces\Attributes\ITroop.cs" />
     <Compile Include="Interfaces\Attributes\IUnit.cs" />
     <Compile Include="Interfaces\Attributes\IVillage.cs" />
     <Compile Include="Interfaces\Handler\IHPage.cs" />
     <Compile Include="Interfaces\ITravianBot.cs" />
+    <Compile Include="Interfaces\Properties\IPDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="tor.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Logging.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

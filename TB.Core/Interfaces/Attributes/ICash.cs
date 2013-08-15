@@ -1,12 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TB.Core.Interfaces.Attributes
 {
   public interface ICash
   {
+    /// <summary>
+    /// The amount of gold
+    /// </summary>
+    Int32 Gold   { get; }
+
+    /// <summary>
+    /// The amount of silver
+    /// </summary>
+    Int32 Silver { get; }
   }
 }

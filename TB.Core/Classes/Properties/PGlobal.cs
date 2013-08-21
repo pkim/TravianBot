@@ -25,7 +25,7 @@ namespace TB.Core.Classes.Properties
       this.Profiles  = String.Format("{0}{1}\\", this.Base, "Profiles");
       this.Languages = String.Format("{0}{1}\\", this.Base, "Languages");
 
-      // the following one must be set dynamically
+      // the following one must be set dynamically  
       this.Profile    = this.Base;
       this.Cache      = this.Base;
       this.Settings   = this.Base;

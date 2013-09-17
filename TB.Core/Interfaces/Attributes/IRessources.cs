@@ -1,6 +1,6 @@
 ﻿namespace TB.Core.Interfaces.Attributes
 {
-  public interface IRessources : IRessourceLimits, ICosts
-  {
-  }
+    public interface IRessources : IRessourceLimits, ICosts
+    {
+    }
 }

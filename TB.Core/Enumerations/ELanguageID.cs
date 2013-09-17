@@ -4,7 +4,7 @@
     {
         UNKNOWN = 0,
 
-        GERMAN  = 100,
+        GERMAN = 100,
         ENGLISH = 101,
     }
 }

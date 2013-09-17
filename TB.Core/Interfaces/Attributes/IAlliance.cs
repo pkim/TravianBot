@@ -1,6 +1,6 @@
 ﻿namespace TB.Core.Interfaces.Attributes
 {
-  public interface IAlliance
-  {
-  }
+    public interface IAlliance
+    {
+    }
 }

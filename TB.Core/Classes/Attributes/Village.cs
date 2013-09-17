@@ -12,36 +12,42 @@ namespace TB.Core.Classes.Attributes
   public class Village : IVillage
   {
     #region Constructor
+
     public Village(IHPage _handlerPage, Int32 _id, String _name)
     {
       this.HPage = _handlerPage;
 
-      this.ID   = _id;
+      this.ID = _id;
       this.Name = _name;
 
-      this.Ressources   = null;
-      this.Buildings    = new Dictionary<EBuildingType, IDictionary<Int32, IBuilding>>();
-      this.Acceptance   = new Double();
+      this.Ressources = null;
+      this.Buildings = new Dictionary<EBuildingType, IDictionary<Int32, IBuilding>>();
+      this.Acceptance = new Double();
       this.DefenseBonus = new Double();
-      this.Units        = new Dictionary<EUnitType, IUnit>();
-      this.Coordinate   = null;
-      this.URLFarm      = HLink.GetLink(EPageID.FARM,    _id);
-      this.URLVillage   = HLink.GetLink(EPageID.VILLAGE, _id);
-      this.Inhabitants  = new Int32();
-      this.MainVillage  = false;
+      this.Units = new Dictionary<EUnitType, IUnit>();
+      this.Coordinate = null;
+      this.URLFarm = HLink.GetLink(EPageID.FARM, _id);
+      this.URLVillage = HLink.GetLink(EPageID.VILLAGE, _id);
+      this.Inhabitants = new Int32();
+      this.MainVillage = false;
 
       this.Initialized = false;
     }
+
     #endregion Constructor
 
     #region Properties
+
     #region Protected
+
     protected IHPage HPage { get; set; }
+
     #endregion Protected
 
     #region Public
+
     public bool Initialized { get; private set; }
-    
+
     public Int32 ID { get; private set; }
     public String Name { get; private set; }
     public IRessourceLimits Ressources { get; private set; }
@@ -56,21 +62,75 @@ namespace TB.Core.Classes.Attributes
     public Boolean MainVillage { get; private set; }
 
     #endregion Public
+
     #endregion Properties
 
     #region Methods
 
     #region Protected
 
-    protected EReturnCode ResolveBuildings(EInitMode _initMode)
+    protected EReturnCode ResolveVillageBuildings(EInitMode _initMode)
     {
       IBuilding building;
-      String    value;
-      Int32     id;
-      String    name;
-      EBuildingType type = EBuildingType.UNKNOWN;
+      String value;
+      Int32  id;
+      String name;
+      EBuildingType type;
 
-      HInfo.LogHandler.Debug(String.Format("START RESOLVE BUILDINGS OF VILLAGE {0}", this.Name));
+      HInfo.LogHandler.Debug(String.Format("START RESOLVE VILLAGE BUILDINGS OF VILLAGE {0}", this.Name));
+      try
+      {
+        HtmlNode baseNode = HPage.GetPageVillage(this.ID).GetElementbyId("clickareas");
+
+        foreach (HtmlNode hnFarm in baseNode.SelectNodes(HInfo.PXPathExpr.AreaVillage))
+        {
+          // resolve id
+          value = hnFarm.GetAttributeValue(HInfo.PHtmlAttributes.HRef, String.Empty);
+          value = value.Substring(value.IndexOf('=') + 1);
+          id = Int32.Parse(value);
+
+          // resoble name
+          value = hnFarm.GetAttributeValue(HInfo.PHtmlAttributes.Alt, String.Empty);
+          name = !value.Contains(" ") ? value : value.Substring(0, value.IndexOf(' '));
+          
+          // resolve type
+          type = HInfo.PDictionary.Buildings[name];
+
+          building = new Building(this.HPage, this.ID, id, name);
+          building.Init(_initMode);
+
+          // create dictionary if this type doesn't exists already in it
+          if (!this.Buildings.ContainsKey(type))
+          {
+            IDictionary<Int32, IBuilding> dictionary = new Dictionary<Int32, IBuilding>();
+            this.Buildings.Add(type, dictionary);
+          }
+
+          this.Buildings[type].Add(id, building);
+        }
+      }
+      catch (Exception exception)
+      {
+        HInfo.LogHandler.Error(String.Format("Unable to resolve the village buildings of village {0}", this.Name), exception);
+        return EReturnCode.FAIL;
+      }
+      finally
+      {
+        HInfo.LogHandler.Debug(String.Format("END RESOLVE VILLAGE BUILDINGS OF VILLAGE {0}", this.Name));
+      }
+
+      return EReturnCode.SUCCESS;
+    }
+
+    protected EReturnCode ResolveFarmBuildings(EInitMode _initMode)
+    {
+      IBuilding building;
+      String value;
+      Int32 id;
+      String name;
+      EBuildingType type;
+
+      HInfo.LogHandler.Debug(String.Format("START RESOLVE FARM BUILDINGS OF VILLAGE {0}", this.Name));
       try
       {
         HtmlNode baseNode = HPage.GetPageFarm(this.ID).GetElementbyId(HInfo.PHtmlAttributes.IDRx);
@@ -83,33 +143,33 @@ namespace TB.Core.Classes.Attributes
           id = Int32.Parse(value);
 
           // resoble name
-          value = hnFarm.GetAttributeValue(HInfo.PHtmlAttributes.Alt, String.Empty);
+          value = hnFarm.GetAttributeValue(HInfo.PHtmlAttributes.Title, String.Empty);
           name = value.Substring(0, value.IndexOf(' '));
 
           // resolve type
           type = HInfo.PDictionary.Buildings[name];
 
-          building = new Building(this.ID, id, name, type);
+          building = new Building(this.HPage, this.ID, id, name);
           building.Init(_initMode);
-          
+
           // create dictionary if this type doesn't exists already in it
           if (!this.Buildings.ContainsKey(type))
           {
             IDictionary<Int32, IBuilding> dictionary = new Dictionary<Int32, IBuilding>();
             this.Buildings.Add(type, dictionary);
           }
-         
+
           this.Buildings[type].Add(id, building);
         }
       }
       catch (Exception exception)
       {
-        HInfo.LogHandler.Error(String.Format("Unable to resolve the buildings of vilage {0}", this.Name), exception);
+        HInfo.LogHandler.Error(String.Format("Unable to resolve the farm buildings of village {0}", this.Name), exception);
         return EReturnCode.FAIL;
       }
       finally
       {
-        HInfo.LogHandler.Debug(String.Format("END RESOLVE BUILDINGS OF VILLAGE {0}", this.Name));
+        HInfo.LogHandler.Debug(String.Format("END RESOLVE FARM BUILDINGS OF VILLAGE {0}", this.Name));
       }
 
       return EReturnCode.SUCCESS;
@@ -147,26 +207,31 @@ namespace TB.Core.Classes.Attributes
             }
             catch (Exception exception)
             {
-              HInfo.LogHandler.Error(String.Format("Unable to resolve if the village {0} is the main village", this.Name), exception);
+              HInfo.LogHandler.Error(
+                String.Format("Unable to resolve if the village {0} is the main village", this.Name),
+                exception);
             }
 
             try
             {
               // Resolve Inhabitants
-              this.Inhabitants = Int32.Parse(hnTr.SelectSingleNode(HInfo.PXPathExpr.TdInhabitants).InnerText);
+              this.Inhabitants =
+                Int32.Parse(hnTr.SelectSingleNode(HInfo.PXPathExpr.TdInhabitants).InnerText);
             }
             catch (Exception exception)
             {
-              HInfo.LogHandler.Error(String.Format("Unable to resolve if the village {0} is the main village", this.Name), exception);
+              HInfo.LogHandler.Error(
+                String.Format("Unable to resolve if the village {0} is the main village", this.Name),
+                exception);
               return EReturnCode.FAIL;
             }
-            
           }
         }
       }
       catch (Exception exception)
       {
-        HInfo.LogHandler.Error(String.Format("Unable to resolve Html document : {0}", HInfo.PLinks.Player), exception);
+        HInfo.LogHandler.Error(String.Format("Unable to resolve Html document : {0}", HInfo.PLinks.Player),
+          exception);
         return EReturnCode.FAIL;
       }
       finally
@@ -190,14 +255,20 @@ namespace TB.Core.Classes.Attributes
         hn = hn.SelectSingleNode(HInfo.PXPathExpr.VillageAcceptance);
 
         String value = hn.ChildNodes[1].InnerText;
-        value = value.Substring(17);
-        value = value.Substring(0, value.IndexOf('&'));
+        
+        /* there are three '?' characters at the beginning, one before '%' and two trailing
+         * thats the reason why the start index is 3 and why the length of the substring is - 4
+         * the '?' are not visible while debugging the variable value. Seems that '?' is out of range of 
+         * the printable ASCII Characters
+         */ 
+        value = value.Substring(3, value.IndexOf('%') - 4);
 
-        this.Acceptance = Int32.Parse(value);
+        this.Acceptance = Double.Parse(value);
       }
       catch (Exception exception)
       {
-        HInfo.LogHandler.Error(String.Format("Unable to resolve acceptance in village {0}", this.Name), exception);
+        HInfo.LogHandler.Error(String.Format("Unable to resolve acceptance in village {0}", this.Name),
+          exception);
         return EReturnCode.FAIL;
       }
       finally
@@ -241,12 +312,13 @@ namespace TB.Core.Classes.Attributes
       }
       catch (Exception exception)
       {
-        HInfo.LogHandler.Error(String.Format("Unable to resolve ressources in village {0}", this.Name), exception);
+        HInfo.LogHandler.Error(String.Format("Unable to resolve ressources in village {0}", this.Name),
+          exception);
         return EReturnCode.FAIL;
       }
       finally
       {
-        HInfo.LogHandler.Debug(String.Format("END RESOLVE RESSOURCES OF VILLAGE {0}", this.Name));  
+        HInfo.LogHandler.Debug(String.Format("END RESOLVE RESSOURCES OF VILLAGE {0}", this.Name));
       }
 
       return EReturnCode.SUCCESS;
@@ -288,12 +360,13 @@ namespace TB.Core.Classes.Attributes
       }
       catch (Exception exception)
       {
-        HInfo.LogHandler.Error(String.Format("Unable to resolve coordinate OF VILLAGE {0}", this.Name), exception);
+        HInfo.LogHandler.Error(String.Format("Unable to resolve coordinate OF VILLAGE {0}", this.Name),
+          exception);
         return EReturnCode.FAIL;
       }
       finally
       {
-        HInfo.LogHandler.Debug(String.Format("END RESOLVE COORDINATES OF VILLAGE {0}", this.Name));  
+        HInfo.LogHandler.Debug(String.Format("END RESOLVE COORDINATES OF VILLAGE {0}", this.Name));
       }
 
       return EReturnCode.SUCCESS;
@@ -301,6 +374,7 @@ namespace TB.Core.Classes.Attributes
     #endregion Protected
 
     #region Public
+
     public EReturnCode Init()
     {
       return this.Init(EInitMode.ON_DEMAND);
@@ -326,13 +400,17 @@ namespace TB.Core.Classes.Attributes
       if ((returnCode = this.ResolveInhabitants()) != EReturnCode.SUCCESS)
       { return returnCode; }
 
-      // Inhabitants
-      if ((returnCode = this.ResolveBuildings(_initMode)) != EReturnCode.SUCCESS)
+      // Farm buildings
+      if ((returnCode = this.ResolveFarmBuildings(_initMode)) != EReturnCode.SUCCESS)
       { return returnCode; }
 
+      // Village buildings
+      if ((returnCode = this.ResolveVillageBuildings(_initMode)) != EReturnCode.SUCCESS)
+      { return returnCode; }
+
+      // Full resolve
       if (_initMode == EInitMode.FULL)
       {
-        
       }
 
       return returnCode;
@@ -372,7 +450,9 @@ namespace TB.Core.Classes.Attributes
     {
       throw new NotImplementedException();
     }
+
     #endregion Public
+
     #endregion Methods
   }
 }

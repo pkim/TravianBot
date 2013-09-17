@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Classes\Attributes\Alliance.cs" />
     <Compile Include="Classes\Attributes\Building.cs" />
+    <Compile Include="Classes\Attributes\BuildingFarm.cs" />
+    <Compile Include="Classes\Attributes\BuildingVillage.cs" />
     <Compile Include="Classes\Attributes\Coordinate.cs" />
     <Compile Include="Classes\Attributes\Hero.cs" />
     <Compile Include="Classes\Attributes\Player.cs" />
@@ -104,24 +106,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="tor.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Logging.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\libary\HLib\InterfaceHandler\Handler.Interface.csproj">
+    <ProjectReference Include="..\..\Hlib\InterfaceHandler\HLib.Network.csproj">
       <Project>{676b080a-7451-46e1-a781-161115fc8360}</Project>
-      <Name>Handler.Interface</Name>
+      <Name>HLib.Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\libary\HLib\SettingHandler\Handler.Settings.csproj">
+    <ProjectReference Include="..\..\Hlib\SettingHandler\HLib.Settings.csproj">
       <Project>{b62fa97e-849f-4017-b022-af3fb5142123}</Project>
-      <Name>Handler.Settings</Name>
+      <Name>HLib.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

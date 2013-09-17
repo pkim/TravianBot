@@ -1,13 +1,15 @@
 ﻿using System;
 using System.IO;
-using Handler.Settings.Property;
+using HLib.Settings.Property;
 
 namespace TB.Core.Classes.Properties
 {
   public class PGlobal : Property<PGlobal>
   {
     #region Objects
+
     private String profile;
+
     #endregion Objects
 
     #region Constructor
@@ -21,24 +23,33 @@ namespace TB.Core.Classes.Properties
       this.TorExe = "tor.exe";
 
       this.Base      = AppDomain.CurrentDomain.BaseDirectory;
-      this.Tor       = String.Format("{0}{1}\\", this.Base, "Tor");
-      this.Profiles  = String.Format("{0}{1}\\", this.Base, "Profiles");
+      this.Tor       = this.Base;
+      this.Profiles  = String.Format("{0}{1}\\", this.Base, "Profiles" );
       this.Languages = String.Format("{0}{1}\\", this.Base, "Languages");
 
       // the following one must be set dynamically  
-      this.Profile    = this.Base;
-      this.Cache      = this.Base;
-      this.Settings   = this.Base;
-      this.Languages  = this.Base;
+      this.Profile   = this.Base;
+      this.Cache     = this.Base;
+      this.Settings  = this.Base;
+      this.Languages = this.Base;
+
+      this.LogConfig = this.Base;
 
       // create the output directory
       if (!Directory.Exists(this.Profiles))
-      { Directory.CreateDirectory(this.Profiles); }
+      {
+          Directory.CreateDirectory(this.Profiles);
+      }
       this.OutputDirectory = this.Profiles;
     }
     #endregion Constructor
 
     #region Properties
+
+    /// <summary>
+    /// The path of the log config file
+    /// </summary>
+    public String LogConfig { get; set; }
 
     /// <summary>
     /// The base directory of the program
@@ -62,9 +73,9 @@ namespace TB.Core.Classes.Properties
 
       set
       {
-        this.profile   = value;
-        this.Cache     = String.Format("{0}{1}\\", this.profile, "Cache");
-        this.Settings  = String.Format("{0}{1}\\", this.profile, "Settings");
+        this.profile  = value;
+        this.Cache    = String.Format("{0}{1}\\", this.profile, "Cache");
+        this.Settings = String.Format("{0}{1}\\", this.profile, "Settings");
       }
     }
 
@@ -104,6 +115,5 @@ namespace TB.Core.Classes.Properties
     public String LowRes { get; set; }
 
     #endregion Properties
-
   }
 }

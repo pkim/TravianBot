@@ -4,9 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Handler.Interface.NetworkHandler.IP.HTTP;
+using HLib.Network.IP.HTML;
+using HLib.Network.IP.HTTP;
 using HtmlAgilityPack;
-using NetworkHandler.IP.HTML;
 using TB.Core.Enumeration;
 using TB.Core.Interfaces.Handler;
 
@@ -15,10 +15,11 @@ namespace TB.Core.Classes.Handler
   public class HPage : IHPage
   {
     #region Constructor
+
     private HPage()
     {
-      this.COAccess       = new Int32();
-      this.CODownloads    = new Int32();
+      this.COAccess = new Int32();
+      this.CODownloads = new Int32();
       this.PageDictionary = new SortedDictionary<EPageID, HtmlDocument>();
 
       /* add a empty html document to the indox of static frame page
@@ -31,17 +32,20 @@ namespace TB.Core.Classes.Handler
     {
       this.HTMLClient = _client;
     }
+
     #endregion Constructor
 
     #region Properties
-    public Int32 COAccess { get; private set; }
-    public Int32 CODownloads { get; private set; }
 
     protected HTMLClient HTMLClient { get; private set; }
     protected SortedDictionary<EPageID, HtmlDocument> PageDictionary { get; private set; }
+    public Int32 COAccess { get; private set; }
+    public Int32 CODownloads { get; private set; }
+
     #endregion Properties
 
     #region Methods
+
     #region Protected
 
     protected HtmlDocument GetHtmlDocument(EPageID _pageID)
@@ -63,23 +67,28 @@ namespace TB.Core.Classes.Handler
         htmlDocument = this.PageDictionary[_pageID];
       }
 
-      // if the document in the cache is out of the date or not cached yet
+        // if the document in the cache is out of the date or not cached yet
       else
       {
         HInfo.LogHandler.Debug(String.Format("DOWNLOAD - {0}", HLink.GetLink(_pageID).Segments.Last()));
 
         // set options
         htmlDocument = new HtmlDocument();
-        htmlDocument.OptionComputeChecksum = false;
-        htmlDocument.OptionFixNestedTags   = true;
-        htmlDocument.OptionUseIdAttribute  = true;
+        htmlDocument.OptionComputeChecksum               = false;
+        //htmlDocument.OptionFixNestedTags                 = true;
+        htmlDocument.OptionUseIdAttribute                = true;
+        //htmlDocument.OptionOutputOptimizeAttributeValues = false;
+        //htmlDocument.OptionOutputOriginalCase            = false;
+        //htmlDocument.OptionOutputAsXml                   = true;
+        //htmlDocument.OptionReadEncoding                  = false;
+        
 
         // Download the html document of the login
         this.HTMLClient.getHTML(HLink.GetLink(_pageID),
-                                               _get,      // GET Parameter
-                                               _post,     // POST Parameter
-                                               Encoding.Default,
-                                               ref htmlDocument);
+          _get, // GET Parameter
+          _post, // POST Parameter
+          Encoding.Unicode,
+          ref htmlDocument);
 
         // wait for a random time to simulate human activity
         HHumanActivity.Simulate();
@@ -99,8 +108,8 @@ namespace TB.Core.Classes.Handler
 
           // save html document at the configured path
           htmlDocument.Save(String.Format("{0}{1}",
-                              HInfo.PGlobal.Cache,           // The configured output directory
-                              HLink.GetLink(_pageID).Segments.Last()));   // the name of the document
+            HInfo.PGlobal.Cache, // The configured output directory
+            HLink.GetLink(_pageID).Segments.Last())); // the name of the document
         }
       }
 
@@ -108,6 +117,7 @@ namespace TB.Core.Classes.Handler
       this.PageDictionary[EPageID.STATIC_FRAME] = this.PageDictionary[_pageID];
       return htmlDocument;
     }
+
     #endregion Protected
 
     #region Public
@@ -130,10 +140,10 @@ namespace TB.Core.Classes.Handler
     public HtmlDocument GetPageFarm(Int32 _villageID)
     {
       List<HTTPParameter> get = new List<HTTPParameter>(1)
-        {
-          new HTTPParameter(HInfo.PHTTPParameters.VillageNewdID,                // attribute name
-                            _villageID.ToString(CultureInfo.InvariantCulture))  // atribute value
-        };
+      {
+        new HTTPParameter(HInfo.PHTTPParameters.VillageNewdID, // attribute name
+          _villageID.ToString(CultureInfo.InvariantCulture)) // atribute value
+      };
 
       HtmlDocument page = this.GetHtmlDocument(EPageID.FARM, get, null);
       return page;
@@ -142,12 +152,12 @@ namespace TB.Core.Classes.Handler
     public HtmlDocument GetPageVillage(Int32 _villageID)
     {
       List<HTTPParameter> get = new List<HTTPParameter>(1)
-        {
-          new HTTPParameter(HInfo.PHTTPParameters.VillageNewdID,                // attribute name
-                            _villageID.ToString(CultureInfo.InvariantCulture))  // atribute value
-        };
+      {
+        new HTTPParameter(HInfo.PHTTPParameters.VillageNewdID, // attribute name
+          _villageID.ToString(CultureInfo.InvariantCulture)) // atribute value
+      };
 
-      return this.GetHtmlDocument(EPageID.FARM, get, null);
+      return this.GetHtmlDocument(EPageID.VILLAGE, get, null);
     }
 
     public HtmlDocument GetPageVillageOverview()
@@ -179,7 +189,9 @@ namespace TB.Core.Classes.Handler
     {
       return this.GetHtmlDocument(EPageID.PLAYER);
     }
+
     #endregion Public
+
     #endregion Methods
   }
 }

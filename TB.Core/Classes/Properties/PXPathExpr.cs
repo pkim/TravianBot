@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Handler.Settings.Property;
+using HLib.Settings.Property;
 using TB.Core.Classes.Handler;
 
 namespace TB.Core.Classes.Properties
@@ -8,39 +8,45 @@ namespace TB.Core.Classes.Properties
   public class PXPathExpr : Property<PXPathExpr>
   {
     #region Constructor
+
     private PXPathExpr()
     {
-      this.LoginSessionID          = ".//input[@name='login']";
+      this.LoginSessionID = ".//input[@name='login']";
       this.VillageOverviewBaseNode = ".//a[@href]";
 
-      this.VillageWood  = ".//span[@id='l1']";
-      this.VillageMud   = ".//span[@id='l2']";
+      this.VillageWood = ".//span[@id='l1']";
+      this.VillageMud = ".//span[@id='l2']";
       this.VillageStone = ".//span[@id='l3']";
-      this.VillageCorn  = ".//span[@id='l4']";
+      this.VillageCorn = ".//span[@id='l4']";
 
       this.VillageAcceptance = ".//div[@class='loyalty medium']";
 
-      this.TBody  = ".//tbody";
-      this.Tr     = ".//tr";
+      this.TBody = ".//tbody";
+      this.Tr = ".//tr";
       this.AHrefVillageName = ".//a[@href]";
-      this.TdVillageName    = ".//td[@class='name']";
-      this.SpanMainVillage  = ".//span[@class='mainVillage']";
-      this.TdInhabitants    = ".//td[@class='inhabitants']";
+      this.TdVillageName = ".//td[@class='name']";
+      this.SpanMainVillage = ".//span[@class='mainVillage']";
+      this.TdInhabitants = ".//td[@class='inhabitants']";
 
-      this.DivVillageName  = ".//div[@class='name']";
+      this.DivVillageName = ".//div[@class='name']";
       this.SpanCoordinateX = ".//span[@class='coordinateX']";
       this.SpanCoordinateY = ".//span[@class='coordinateY']";
 
-      this.AreaFarm = ".//area[(@shape='circle') and not (@alt='')]";
+      this.AreaFarm    = ".//area[(@shape='circle') and not (@alt='')]";
+      this.AreaVillage = ".//area[(@shape='poly')]";
 
       // create the output directory
       if (!Directory.Exists(HInfo.PGlobal.Settings))
-      { Directory.CreateDirectory(HInfo.PGlobal.Settings); }
+      {
+        Directory.CreateDirectory(HInfo.PGlobal.Settings);
+      }
       this.OutputDirectory = HInfo.PGlobal.Settings;
     }
+
     #endregion Constructor
 
     #region Properties
+
     public String LoginSessionID { get; set; }
     public String VillageOverviewBaseNode { get; set; }
 
@@ -64,6 +70,7 @@ namespace TB.Core.Classes.Properties
     public String SpanCoordinateY { get; set; }
 
     public String AreaFarm { get; set; }
+    public String AreaVillage { get; set; }
 
     #endregion Properties
   }

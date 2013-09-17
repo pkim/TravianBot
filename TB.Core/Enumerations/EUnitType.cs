@@ -1,13 +1,13 @@
 ﻿namespace TB.Core.Enumerations
 {
-  /// <summary>
-  /// Specifies the type of a unit
-  /// </summary>
-  public enum EUnitType
-  {
     /// <summary>
-    /// The type of the unit is unknown
+    /// Specifies the type of a unit
     /// </summary>
-    UNKNOWN = 0,
-  }
+    public enum EUnitType
+    {
+        /// <summary>
+        /// The type of the unit is unknown
+        /// </summary>
+        UNKNOWN = 0,
+    }
 }
